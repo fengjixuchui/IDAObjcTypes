@@ -95,12 +95,15 @@ void CGContextSetFillColor(CGContextRef context, const CGFloat components[]);
 void CGContextSetFillColorWithColor(CGContextRef c, CGColorRef color);
 void CGContextSetStrokeColor(CGContextRef context, const CGFloat components[]);
 void CGContextSetStrokeColorWithColor(CGContextRef c, CGColorRef color);
+void CGContextSetInterpolationQuality(CGContextRef c, CGInterpolationQuality quality);
+void CGContextSetShadowWithColor(CGContextRef c, CGSize offset, CGFloat blur, CGColorRef color);
 void CGContextRelease(CGContextRef c);
 void CGContextFlush(CGContextRef c);
 void CGContextSynchronize(CGContextRef c);
 void CGContextEndPage(CGContextRef c);
 void CGContextBeginPage(CGContextRef c, const CGRect* mediaBox);
 void CGContextDrawPath(CGContextRef c, CGPathDrawingMode mode);
+void CGContextResetClip(CGContextRef c);
 void CGContextClear(CGContextRef c);
 void CGGradientRelease(CGGradientRef gradient);
 void CGImageRelease(CGImageRef image);
@@ -125,6 +128,7 @@ void CGContextBeginTransparencyLayer(CGContextRef c, CFDictionaryRef auxiliaryIn
 void CGContextBeginTransparencyLayerWithRect(CGContextRef c, CGRect rect, CFDictionaryRef auxInfo);
 void CGContextEndTransparencyLayer(CGContextRef c);
 void CGRectDivide(CGRect rect, CGRect* slice, CGRect* remainder, CGFloat amount, CGRectEdge edge);
+void CGColorSpaceRelease(CGColorSpaceRef space);
 void CGColorRelease(CGColorRef color);
 void CGPatternRelease(CGPatternRef pattern);
 void CGFontRelease(CGFontRef font);
@@ -152,7 +156,9 @@ CGMutablePathRef CGPathCreateMutableCopy(CGPathRef path);
 CGMutablePathRef CGPathCreateMutableCopyByTransformingPath(CGPathRef path, const CGAffineTransform* transform);
 
 CGImageRef CGImageCreate(size_t width, size_t height, size_t bitsPerComponent, size_t bitsPerPixel, size_t bytesPerRow, CGColorSpaceRef space, CGBitmapInfo bitmapInfo, CGDataProviderRef provider, const CGFloat* decode, bool shouldInterpolate, CGColorRenderingIntent intent);
+CGImageRef CGImageCreateWithPNGDataProvider(CGDataProviderRef source, const CGFloat *decode, bool shouldInterpolate, CGColorRenderingIntent intent);
 CGImageRef CGImageMaskCreate(size_t width, size_t height, size_t bitsPerComponent, size_t bitsPerPixel, size_t bytesPerRow, CGDataProviderRef provider, const CGFloat* decode, bool shouldInterpolate);
+CGImageRef CGBitmapContextCreateImage(CGContextRef context);
 CGImageRef CGImageRetain(CGImageRef image);
 
 CGFontRef CGFontRetain(CGFontRef font);
@@ -166,6 +172,7 @@ CGFontRef CGFontCreateMatchingFont(const char* , const char* , int, bool, CGFloa
 CFMutableArrayRef CGFontCreateFontsWithPath(CFStringRef path);
 CFMutableArrayRef CGCFArrayCreate(void);
 
+CGContextRef CGBitmapContextCreate(void *data, size_t width, size_t height, size_t bitsPerComponent, size_t bytesPerRow, CGColorSpaceRef space, uint32_t bitmapInfo);
 CGContextRef CGContextRetain(CGContextRef c);
 
 CGColorRef CGColorRetain(CGColorRef color);
@@ -181,6 +188,7 @@ CGColorRef CGColorCreateCopyByMatchingToColorSpace(CGColorSpaceRef, CGColorRende
 
 CGColorSpaceRef CGImageGetColorSpace(CGImageRef image);
 CGColorSpaceRef CGColorGetColorSpace(CGColorRef color);
+CGColorSpaceRef CGColorSpaceCreateDeviceRGB(void);
 
 CGColorRenderingIntent CGImageGetRenderingIntent(CGImageRef image);
 
@@ -189,6 +197,7 @@ CGPatternRef CGPatternCreate(void* info, CGRect bounds, CGAffineTransform matrix
 CGPatternRef CGColorGetPattern(CGColorRef color);
 
 CGGradientRef CGGradientCreateWithColors(CGColorSpaceRef space, CFArrayRef colors, const CGFloat* locations);
+CGGradientRef CGGradientCreateWithColorComponents(CGColorSpaceRef space, const CGFloat *components, const CGFloat *locations, size_t count);
 
 CGImageAlphaInfo CGImageGetAlphaInfo(CGImageRef image);
 

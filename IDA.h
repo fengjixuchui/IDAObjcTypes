@@ -1,4 +1,5 @@
 // #define x86
+// #define SWIFT
 #import "Types.h"
 #import "dyld/dyld.h"
 #import "icu/icu.h"
@@ -11,6 +12,7 @@
 #import "CoreGraphics/CoreGraphics.h"
 #import "CoreMedia/CoreMedia.h"
 #import "CoreText/CoreText.h"
+#import "CoreServices/CoreServices.h"
 #import "CoreVideo/CoreVideo.h"
 #import "CydiaSubstrate/CydiaSubstrate.h"
 #import "Darwin/Darwin.h"
@@ -24,7 +26,12 @@
 #import "os/os.h"
 #import "pthread/pthread.h"
 #import "sandbox/sandbox.h"
+#import "Security/Security.h"
 #import "xpc/xpc.h"
+#import "sqlite/sqlite.h"
+#ifdef SWIFT
+#import "Swift/Swift.h"
+#endif
 
 /*
 *  Copyright (C) Apple Inc. All rights reserved.

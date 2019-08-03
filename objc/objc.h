@@ -51,6 +51,8 @@ id class_createInstance(Class cls, size_t extraBytes);
 id _imp__class_createInstance(Class cls, size_t extraBytes);
 id method_invoke(id receiver, Method m, ...);
 id _imp__method_invoke(id receiver, Method m, ...);
+id objc_begin_catch(void* exc_buf);
+id _imp__objc_begin_catch(void* exc_buf);
 
 #ifdef x86
 double objc_msgSend_fpret(id self, SEL op, ...);
@@ -98,6 +100,8 @@ IMP class_getMethodImplementation(Class cls, SEL name);
 IMP _imp__class_getMethodImplementation(Class cls, SEL name);
 IMP object_getMethodImplementation(id obj, SEL name);
 IMP _imp__object_getMethodImplementation(id obj, SEL name);
+IMP imp_implementationWithBlock(id block);
+IMP _imp__imp_implementationWithBlock(id block);
 
 char* method_copyArgumentType(Method m, unsigned int index);
 char* _imp__method_copyArgumentType(Method m, unsigned int index);
@@ -207,6 +211,9 @@ BOOL _imp__class_addProtocol(Class cls, Protocol* protocol);
 BOOL class_respondsToSelector(Class cls, SEL sel);
 BOOL _imp__class_respondsToSelector(Class cls, SEL sel);
 
+void objc_alloc(id);
+void class_replaceProperty(Class cls, const char* name, const objc_property_attribute_t* attributes, unsigned int attributeCount);
+void _imp__class_replaceProperty(Class cls, const char* name, const objc_property_attribute_t* attributes, unsigned int attributeCount);
 void objc_registerClassPair(Class cls);
 void _imp__objc_registerClassPair(Class cls);
 void objc_disposeClassPair(Class cls);
@@ -235,8 +242,8 @@ void objc_enumerationMutation(id obj);
 void _imp__objc_enumerationMutation(id obj);
 void objc_autoreleasePoolPop(void* pool);
 void _imp__objc_autoreleasePoolPop(void* pool);
-void objc_msgSend_stret(id self, SEL op, ...);
-void _imp__objc_msgSend_stret(id self, SEL op, ...);
+void objc_msgSend_stret(void *val, id self, SEL op, ...);
+void _imp__objc_msgSend_stret(void *val, id self, SEL op, ...);
 void objc_msgSendSuper2_stret(struct objc_super* super, SEL op,...);
 void _imp__objc_msgSendSuper2_stret(struct objc_super* super, SEL op,...);
 void objc_moveWeak(id* dest, id* src);
@@ -265,6 +272,12 @@ void method_getArgumentType(Method m, unsigned int index, char* dst, size_t dst_
 void _imp__method_getArgumentType(Method m, unsigned int index, char* dst, size_t dst_len);
 void method_exchangeImplementations(Method m1, Method m2);
 void _imp__method_exchangeImplementations(Method m1, Method m2);
+void objc_exception_throw(id exception);
+void _imp__objc_exception_throw(id exception);
+void objc_exception_rethrow(void);
+void _imp__objc_exception_rethrow(void);
+void objc_end_catch(void);
+void _imp__objc_end_catch(void);
 
 void* objc_autoreleasePoolPush(void);
 void* _imp__objc_autoreleasePoolPush(void);
