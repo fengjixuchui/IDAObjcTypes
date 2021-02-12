@@ -1,7 +1,7 @@
 #ifndef COMMONCRYPTO_H_
 #define COMMONCRYPTO_H_
 
-#import "../Types.h"
+#import "../BaseTypes.h"
 
 typedef uint32_t CC_LONG;
 typedef uint64_t CC_LONG64;
@@ -19,33 +19,33 @@ typedef struct CC_MD2state_st {
     CC_LONG state[CC_MD2_BLOCK_LONG];
 } CC_MD2_CTX;
 
-int CC_MD2_Init(CC_MD2_CTX* c);
-int CC_MD2_Update(CC_MD2_CTX* c, const void* data, CC_LONG len);
-int CC_MD2_Final(unsigned char* md, CC_MD2_CTX* c);
+int CC_MD2_Init(CC_MD2_CTX *c);
+int CC_MD2_Update(CC_MD2_CTX *c, const void *data, CC_LONG len);
+int CC_MD2_Final(unsigned char *md, CC_MD2_CTX *c);
 
 #define CC_MD4_DIGEST_LENGTH 16
 #define CC_MD4_BLOCK_BYTES 64
 #define CC_MD4_BLOCK_LONG (CC_MD4_BLOCK_BYTES / sizeof(CC_LONG))
 
 typedef struct CC_MD4state_st {
-    CC_LONG A,B,C,D;
-    CC_LONG Nl,Nh;
+    CC_LONG A, B, C, D;
+    CC_LONG Nl, Nh;
     CC_LONG data[CC_MD4_BLOCK_LONG];
     int num;
 } CC_MD4_CTX;
 
 #define CC_MD5_DIGEST_LENGTH 16
 #define CC_MD5_BLOCK_BYTES 64
-#define CC_MD5_BLOCK_LONG  (CC_MD5_BLOCK_BYTES / sizeof(CC_LONG))
+#define CC_MD5_BLOCK_LONG (CC_MD5_BLOCK_BYTES / sizeof(CC_LONG))
 
 typedef struct CC_MD5state_st {
-    CC_LONG A,B,C,D;
-    CC_LONG Nl,Nh;
+    CC_LONG A, B, C, D;
+    CC_LONG Nl, Nh;
     CC_LONG data[CC_MD5_BLOCK_LONG];
     int num;
 } CC_MD5_CTX;
 
-#define CC_SHA1_DIGEST_LENGTH  20
+#define CC_SHA1_DIGEST_LENGTH 20
 #define CC_SHA1_BLOCK_BYTES 64
 #define CC_SHA1_BLOCK_LONG (CC_SHA1_BLOCK_BYTES / sizeof(CC_LONG))
 
@@ -55,6 +55,12 @@ typedef struct CC_SHA1state_st {
     CC_LONG data[CC_SHA1_BLOCK_LONG];
     int num;
 } CC_SHA1_CTX;
+
+typedef struct CC_SHA224state_st {
+    CC_LONG count[2];
+    CC_LONG hash[8];
+    CC_LONG wbuf[16];
+} CC_SHA224_CTX;
 
 #define CC_SHA256_DIGEST_LENGTH 32
 #define CC_SHA256_BLOCK_BYTES 64
@@ -77,29 +83,29 @@ typedef struct CC_SHA512state_st {
 #define CC_SHA512_DIGEST_LENGTH 64
 #define CC_SHA512_BLOCK_BYTES 128
 
-typedef int32_t CCStatus; enum CCStatus {
-    kCCSuccess          = 0,
-    kCCParamError       = -4300,
-    kCCBufferTooSmall   = -4301,
-    kCCMemoryFailure    = -4302,
-    kCCAlignmentError   = -4303,
-    kCCDecodeError      = -4304,
-    kCCUnimplemented    = -4305,
-    kCCOverflow         = -4306,
-    kCCRNGFailure       = -4307,
+PS_ENUM(int32_t, CCStatus) {
+    kCCSuccess = 0,
+    kCCParamError = -4300,
+    kCCBufferTooSmall = -4301,
+    kCCMemoryFailure = -4302,
+    kCCAlignmentError = -4303,
+    kCCDecodeError = -4304,
+    kCCUnimplemented = -4305,
+    kCCOverflow = -4306,
+    kCCRNGFailure = -4307,
     kCCUnspecifiedError = -4308,
-    kCCCallSequenceError= -4309,
-    kCCKeySizeError     = -4310,
-    kCCInvalidKey       = -4311,
-} CCStatus;
+    kCCCallSequenceError = -4309,
+    kCCKeySizeError = -4310,
+    kCCInvalidKey = -4311,
+};
 typedef int32_t CCCryptorStatus;
 
-typedef uint32_t CCOperation; enum {
+PS_ENUM(uint32_t, CCOperation) {
     kCCEncrypt = 0,
     kCCDecrypt,
-} CCOperation;
+};
 
-typedef uint32_t CCAlgorithm; enum CCAlgorithm {
+PS_ENUM(uint32_t, CCAlgorithm) {
     kCCAlgorithmAES128 = 0,
     kCCAlgorithmAES = 0,
     kCCAlgorithmDES,
@@ -108,31 +114,26 @@ typedef uint32_t CCAlgorithm; enum CCAlgorithm {
     kCCAlgorithmRC4,
     kCCAlgorithmRC2,
     kCCAlgorithmBlowfish
-} CCAlgorithm;
+};
 
-typedef uint32_t CCOptions; enum CCOptions {
-    kCCOptionPKCS7Padding   = 0x0001,
-    kCCOptionECBMode        = 0x0002
-} CCOptions;
+PS_ENUM(uint32_t, CCOptions) { kCCOptionPKCS7Padding = 0x0001, kCCOptionECBMode = 0x0002 };
 
-typedef uint32_t CCMode; enum CCMode {
-	kCCModeECB		= 1,
-	kCCModeCBC		= 2,
-	kCCModeCFB		= 3,
-	kCCModeCTR		= 4,
-	kCCModeOFB		= 7,
-	kCCModeRC4		= 9,
-	kCCModeCFB8		= 10,
-} CCMode;
+PS_ENUM(uint32_t, CCMode) {
+    kCCModeECB = 1,
+    kCCModeCBC = 2,
+    kCCModeCFB = 3,
+    kCCModeCTR = 4,
+    kCCModeOFB = 7,
+    kCCModeRC4 = 9,
+    kCCModeCFB8 = 10,
+};
 
-typedef uint32_t CCModeOptions; enum CCModeOptions {
-    kCCModeOptionCTR_BE = 2
-} CCModeOptions;
+PS_ENUM(uint32_t, CCModeOptions) { kCCModeOptionCTR_BE = 2 };
 
-typedef uint32_t CCPadding; enum CCPadding {
-	ccNoPadding			= 0,
-	ccPKCS7Padding		= 1,
-} CCPadding;
+PS_ENUM(uint32_t, CCPadding) {
+    ccNoPadding = 0,
+    ccPKCS7Padding = 1,
+};
 
 /*
 enum {
@@ -169,30 +170,30 @@ enum {
 };
 */
 
-typedef uint32_t CCHmacAlgorithm; enum CCHmacAlgorithm {
+PS_ENUM(uint32_t, CCHmacAlgorithm) {
     kCCHmacAlgSHA1,
     kCCHmacAlgMD5,
     kCCHmacAlgSHA256,
     kCCHmacAlgSHA384,
     kCCHmacAlgSHA512,
     kCCHmacAlgSHA224
-} CCHmacAlgorithm;
+};
 
 #define CC_HMAC_CONTEXT_SIZE 96
 typedef struct CCHmacContext {
     uint32_t ctx[CC_HMAC_CONTEXT_SIZE];
 } CCHmacContext;
 
-typedef uint32_t CCPBKDFAlgorithm; enum CCPBKDFAlgorithm {
+PS_ENUM(uint32_t, CCPBKDFAlgorithm) {
     kCCPBKDF2 = 2,
-} CCPBKDFAlgorithm;
+};
 
-typedef uint32_t CCPseudoRandomAlgorithm; enum CCPseudoRandomAlgorithm {
+PS_ENUM(uint32_t, CCPseudoRandomAlgorithm) {
     kCCPRFHmacAlgSHA1 = 1,
     kCCPRFHmacAlgSHA224 = 2,
     kCCPRFHmacAlgSHA256 = 3,
     kCCPRFHmacAlgSHA384 = 4,
     kCCPRFHmacAlgSHA512 = 5,
-} CCPseudoRandomAlgorithm;
+};
 
 #endif

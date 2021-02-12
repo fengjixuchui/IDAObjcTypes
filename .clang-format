@@ -1,0 +1,13 @@
+BasedOnStyle: LLVM
+Language: Cpp
+ColumnLimit: 200
+MaxEmptyLinesToKeep: 1
+PointerBindsToType: false
+AllowShortBlocksOnASingleLine: true
+AllowAllParametersOfDeclarationOnNextLine: false
+AlignTrailingComments: true
+SpaceBeforeParens: ControlStatements
+SpaceBeforeAssignmentOperators: true
+SpacesInContainerLiterals: true
+IndentWidth: 4
+TabWidth: 4

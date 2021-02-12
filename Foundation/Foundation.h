@@ -1,87 +1,121 @@
-#import "../Types.h"
+#import "../BaseTypes.h"
+#import "../CoreGraphics/Types.h"
+#import "../UIKit/Types.h"
 #import "Types.h"
 
-SEL NSSelectorFromString(NSString* aSelectorName);
+BOOL NSCompareHashTables(NSHashTable *table1, NSHashTable *table2);
+BOOL NSCompareMapTables(NSMapTable *table1, NSMapTable *table2);
+BOOL NSContainsRect(NSRect aRect, NSRect bRect);
+BOOL NSEqualPoints(NSPoint aPoint, NSPoint bPoint);
+BOOL NSEqualRects(NSRect aRect, NSRect bRect);
+BOOL NSEqualSizes(NSSize aSize, NSSize bSize);
+BOOL NSIntersectsRange(NSRange aRange, NSRange bRange);
+BOOL NSIntersectsRect(NSRect aRect, NSRect bRect);
+BOOL NSIsEmptyRect(NSRect aRect);
+BOOL NSMapMember(NSMapTable *table, const void *key, void **originalKey, void **value);
+BOOL NSNextMapEnumeratorPair(NSMapEnumerator *enumerator, void **key, void **value);
+BOOL NSPointInRect(NSPoint aPoint, NSRect aRect);
 
-CGFloat NSWidth(NSRect aRect);
 CGFloat NSHeight(NSRect aRect);
 CGFloat NSMaxX(NSRect aRect);
-CGFloat NSMidX(NSRect aRect);
-CGFloat NSMinX(NSRect aRect);
 CGFloat NSMaxY(NSRect aRect);
+CGFloat NSMidX(NSRect aRect);
 CGFloat NSMidY(NSRect aRect);
+CGFloat NSMinX(NSRect aRect);
 CGFloat NSMinY(NSRect aRect);
+CGFloat NSWidth(NSRect aRect);
 
-NSUInteger NSRoundUpToMultipleOfPageSize(NSUInteger bytes);
-NSUInteger NSPageSize(void);
+Class NSClassFromString(CFStringRef string);
 
-NSString* NSStringFromClass(Class aClass);
-NSString* NSStringFromProtocol(Protocol* proto);
-NSString* NSStringFromBOOL(BOOL theBOOL);
-NSString* NSStringFromSelector(SEL aSelector);
-NSString* NSStringFromPoint(NSPoint aPoint);
-NSString* NSStringFromSize(NSSize aSize);
-NSString* NSStringFromRect(NSRect aRect);
-NSString* NSStringFromRange(NSRange range);
-NSString* NSStringFromCGRect(CGRect rect);
-NSString* NSStringFromCGSize(CGSize size);
-NSString* NSStringFromCGPoint(CGPoint point);
-NSString* NSStringFromCGAffineTransform(CGAffineTransform t);
-NSString* NSStringFromUIEdgeInsets(UIEdgeInsets insets);
-NSString* NSStringFromUIOffset(UIOffset offset);
-NSString* NSHomeDirectory(void);
-NSString* NSTemporaryDirectory(void);
+const char *NSGetSizeAndAlignment(const char *typePtr, NSUInteger *sizep, NSUInteger *alignp);
 
-NSDictionary* _NSDictionaryOfVariableBindings(NSString* commaSeparatedKeysString, id firstValue, ...);
+id NSAllocateObject(Class aClass, NSUInteger extraBytes, NSZone *zone);
 
-NSArray* NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory directory, NSSearchPathDomainMask domainMask, BOOL expandTilde);
+NSArray *NSAllMapTableKeys(NSMapTable *table);
+NSArray *NSAllMapTableValues(NSMapTable *table);
+NSArray *NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory directory, NSSearchPathDomainMask domainMask, BOOL expandTilde);
 
-NSRect NSUnionRect(NSRect aRect, NSRect bRect);
+NSDictionary *_NSDictionaryOfVariableBindings(NSString *commaSeparatedKeysString, id firstValue, ...);
+
+NSHashEnumerator NSEnumerateHashTable(NSHashTable *table);
+
+NSHashTable *NSCreateHashTable(NSHashTableCallBacks callBacks, NSUInteger capacity);
+
+NSMapEnumerator NSEnumerateMapTable(NSMapTable *table);
+
+NSMapTable *NSCreateMapTable(NSMapTableKeyCallBacks keyCallBacks, NSMapTableValueCallBacks valueCallBacks, NSUInteger capacity);
+NSMapTable *NSCreateMapTableWithZone(NSMapTableKeyCallBacks keyCallBacks, NSMapTableValueCallBacks valueCallBacks, NSUInteger capacity, NSZone *zone);
+
+NSPoint NSPointFromString(NSString *aString);
+
+NSRange NSIntersectionRange(NSRange range1, NSRange range2);
+NSRange NSRangeFromString(NSString *aString);
+NSRange NSUnionRange(NSRange range1, NSRange range2);
+
 NSRect NSInsetRect(NSRect aRect, CGFloat dX, CGFloat dY);
 NSRect NSIntegralRect(NSRect aRect);
 NSRect NSIntegralRectWithOptions(NSRect aRect, NSAlignmentOptions opts);
 NSRect NSIntersectionRect(NSRect aRect, NSRect bRect);
 NSRect NSMakeRect(CGFloat x, CGFloat y, CGFloat w, CGFloat h);
+NSRect NSRectFromString(NSString *aString);
+NSRect NSUnionRect(NSRect aRect, NSRect bRect);
 
-NSRange NSUnionRange(NSRange range1, NSRange range2);
-NSRange NSIntersectionRange(NSRange range1, NSRange range2);
+NSString *NSHomeDirectory(void);
+NSString *NSOpenStepRootDirectory(void);
+NSString *NSStringFromBOOL(BOOL theBOOL);
+NSString *NSStringFromCGAffineTransform(CGAffineTransform t);
+NSString *NSStringFromCGPoint(CGPoint point);
+NSString *NSStringFromCGRect(CGRect rect);
+NSString *NSStringFromCGSize(CGSize size);
+NSString *NSStringFromClass(Class aClass);
+NSString *NSStringFromPoint(NSPoint aPoint);
+NSString *NSStringFromProtocol(Protocol *proto);
+NSString *NSStringFromRange(NSRange range);
+NSString *NSStringFromRect(NSRect aRect);
+NSString *NSStringFromSelector(SEL aSelector);
+NSString *NSStringFromSize(NSSize aSize);
+NSString *NSStringFromUIEdgeInsets(UIEdgeInsets insets);
+NSString *NSStringFromUIOffset(UIOffset offset);
+NSString *NSTemporaryDirectory(void);
 
-BOOL NSContainsRect(NSRect aRect, NSRect bRect);
-BOOL NSEqualRects(NSRect aRect, NSRect bRect);
-BOOL NSIsEmptyRect(NSRect aRect);
-BOOL NSIntersectsRect(NSRect aRect, NSRect bRect);
-BOOL NSMapMember(NSMapTable* table, const void* key, void** originalKey, void** value);
-BOOL NSNextMapEnumeratorPair(NSMapEnumerator* enumerator, void** key, void** value);
-BOOL NSEqualSizes(NSSize aSize, NSSize bSize);
+NSUInteger NSCountMapTable(NSMapTable *table);
+NSUInteger NSPageSize(void);
+NSUInteger NSRoundUpToMultipleOfPageSize(NSUInteger bytes);
 
-Class NSClassFromString(CFStringRef string);
+NSUncaughtExceptionHandler *NSGetUncaughtExceptionHandler(void);
 
-Protocol* NSProtocolFromString(NSString* namestr);
+NSZone *NSZoneFromPointer(void *ptr);
 
-NSMapEnumerator NSEnumerateMapTable(NSMapTable* table);
+Protocol *NSProtocolFromString(CFStringRef namestr);
 
-unsigned __NSHashCString(void* table, const void* anObject);
+SEL NSSelectorFromString(CFStringRef aSelectorName);
 
-const char* NSGetSizeAndAlignment(const char* typePtr, NSUInteger* sizep, NSUInteger* alignp);
+unsigned __NSHashCString(void *table, const void *anObject);
+unsigned NSHashCString(unsigned char *str, int n);
 
-void* NSPushAutoreleasePool(NSUInteger capacity);
-void* NSZoneMalloc(NSZone* zone, NSUInteger size);
-void* NSMapInsertIfAbsent(NSMapTable* table, const void* key, const void* value);
-void* NSMapGet(NSMapTable* table, const void* key);
+void *NSHashGet(NSHashTable *table, const void *pointer);
+void *NSMapGet(NSMapTable *table, const void *key);
+void *NSMapInsertIfAbsent(NSMapTable *table, const void *key, const void *value);
+void *NSNextHashEnumeratorItem(NSHashEnumerator *enumerator);
+void *NSPushAutoreleasePool(NSUInteger capacity);
+void *NSReallocateCollectable(void *ptr, NSUInteger size, NSUInteger options);
+void *NSZoneCalloc(NSZone *zone, NSUInteger numElems, NSUInteger byteSize);
+void *NSZoneMalloc(NSZone *zone, NSUInteger size);
+void *NSZoneRealloc(NSZone *zone, void *ptr, NSUInteger size);
 
-NSArray* NSAllMapTableKeys(NSMapTable* table);
-NSArray* NSAllMapTableValues(NSMapTable* table);
-
-NSUncaughtExceptionHandler* NSGetUncaughtExceptionHandler(void);
-
+void NSDeallocateObject(id object);
+void NSDivideRect(NSRect inRect, NSRect *slice, NSRect *rem, CGFloat amount, NSRectEdge edge);
+void NSEndHashTableEnumeration(NSHashEnumerator *enumerator);
+void NSEndMapTableEnumeration(NSMapEnumerator *enumerator);
+void NSFreeMapTable(NSMapTable *table);
+void NSHashInsert(NSHashTable *table, const void *pointer);
+void NSHashRemove(NSHashTable *table, const void *pointer);
+void NSLog(NSString *format, ...);
 void NSLogv(NSString *format, va_list args);
+void NSMapInsert(NSMapTable *table, const void *key, const void *value);
+void NSMapInsertKnownAbsent(NSMapTable *table, const void *key, const void *value);
+void NSMapRemove(NSMapTable *table, const void *key);
+void NSPopAutoreleasePool(void *token);
 void NSRequestConcreteImplementation(id self, SEL _cmd, Class absClass);
-void NSPopAutoreleasePool(void* token);
-void NSDivideRect(NSRect inRect, NSRect* slice, NSRect* rem, CGFloat amount, NSRectEdge edge);
-void NSLog(NSString* format, ...);
-void NSZoneFree(NSZone* zone, void* ptr);
-void NSMapInsert(NSMapTable* table, const void* key, const void* value);
-void NSMapInsertKnownAbsent(NSMapTable* table, const void* key, const void* value);
-void NSMapRemove(NSMapTable* table, const void* key);
-void NSEndMapTableEnumeration(NSMapEnumerator* enumerator);
-void NSSetUncaughtExceptionHandler(NSUncaughtExceptionHandler* );
+void NSSetUncaughtExceptionHandler(NSUncaughtExceptionHandler *);
+void NSZoneFree(NSZone *zone, void *ptr);

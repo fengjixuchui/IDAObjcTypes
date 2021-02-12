@@ -1,14 +1,17 @@
-#import "../Types.h"
+#import "../BaseTypes.h"
 #import "../CoreFoundation/Types.h"
 
 SInt32 MGGetSInt32Answer(CFStringRef key, SInt32 defaultVal);
+SInt64 MGGetSInt64Answer(CFStringRef key, SInt64 defaultVal);
 
 Float32 MGGetFloat32Answer(CFStringRef key, Float32 defaultVal);
 
 bool MGGetBoolAnswer(CFStringRef key);
-Boolean MGIsQuestionValid(CFStringRef key);
+bool MGIsQuestionValid(CFStringRef key);
 
-CFTypeRef MGCopyAnswer(CFStringRef question, CFDictionaryRef options);
-CFPropertyListRef MGCopyMultipleAnswers(CFArrayRef questions, int __unknown0);
+CFTypeRef MGCopyAnswer(CFStringRef key, CFDictionaryRef options);
+CFTypeRef MGCopyAnswerWithError(CFStringRef key, int unk, int *error);
+CFPropertyListRef MGCopyMultipleAnswers(CFArrayRef keys, CFDictionaryRef unk);
+CFStringRef MGGetStringAnswer(CFStringRef key);
 
-int MGSetAnswer(CFStringRef question, CFTypeRef answer);
+int MGSetAnswer(CFStringRef key, CFTypeRef answer);
